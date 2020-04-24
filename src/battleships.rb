@@ -1,7 +1,8 @@
 
 #this is the main file for the battleships application.
     require "tty-prompt"
-    require_relative "screen.rb"
+    require_relative "grid.rb"
+    require_relative "game_element.rb"
 
 $game_heading = "
     '########::::'###:::'########'########'##::::::'########:'######:'##::::'##'####'########::'######::
@@ -53,10 +54,9 @@ def start_screen
     print "   *******Please choose a menu item to start***********\n"
     print "   Options 1-3 reflect how long each game takes\n"
     @screen = [
-        {" Quick game" =>-> do start_game("quick") end},
-        {" Average game" =>-> do start_game("average") end},
-        {" Long game" =>-> do start_game("long") end},
-        {" How to play" =>-> do help end},
+        {" Start Game" =>-> do start_game("quick") end},
+        {" Score Board" =>-> do score_board("average") end},
+        {" How to play" =>-> do help_menu() end},
         {" Exit" => -> do exit end}
     ]
     prompt.select("", @screen)
@@ -66,17 +66,20 @@ end
 
 #start_screen
 
+game_element1 = GameElement.new("$", [1,2],"Battleship", false)
+game_element2 = GameElement.new("*", [1,3], "Distroyer", false)
 
-screen1 = Screen.new()
+grid1 = Grid.new()
 
-screen1.create
-
-
-screen1.display
-
-screen1.add(1,1,".@")
+grid1.create
 
 
-screen1.redraw
+grid1.display
+
+grid1.add(1,1,game_element1)
+grid1.add(1,2,game_element2)
+game_element1.hit = true
+
+grid1.redraw
 
 
