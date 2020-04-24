@@ -1,5 +1,6 @@
 class Grid
 
+attr_reader :row, :column
 
 def initialize(row=6, column=6)
     @row = row

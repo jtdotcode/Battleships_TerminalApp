@@ -1,8 +1,10 @@
 
 #this is the main file for the battleships application.
     require "tty-prompt"
-    require_relative "grid.rb"
-    require_relative "game_element.rb"
+    # require_relative "grid.rb"
+    # require_relative "game_element.rb"
+    require_relative "game_engine.rb"
+    include GameEngine
 
 $game_heading = "
     '########::::'###:::'########'########'##::::::'########:'######:'##::::'##'####'########::'######::
@@ -66,20 +68,23 @@ end
 
 #start_screen
 
-game_element1 = GameElement.new("$", [1,2],"Battleship", false)
-game_element2 = GameElement.new("*", [1,3], "Distroyer", false)
+# game_element1 = GameElement.new("$", [1,2],"Battleship")
+# game_element2 = GameElement.new("*", [1,3], "Distroyer")
 
-grid1 = Grid.new()
+# grid1 = Grid.new()
 
-grid1.create
+# grid1.create
 
 
-grid1.display
+# grid1.display
 
-grid1.add(1,1,game_element1)
-grid1.add(1,2,game_element2)
-game_element1.hit = true
+# grid1.add(1,1,game_element1)
+# grid1.add(1,2,game_element2)
+# game_element1.hit = false
+# game_element2.hit = true
 
-grid1.redraw
+# grid1.redraw
+
+GameEngine::start
 
 

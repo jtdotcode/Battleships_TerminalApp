@@ -2,11 +2,14 @@
 
 class GameElement
 
-    def initialize(string_element, position=[0,0], name, hit)
+    attr_reader :name
+
+    def initialize(string_element, name, position=[0,0])
         @string_element = create(string_element)
         @position = position
         @name = name
-        @hit = hit
+        @hit = false
+        @visble = false
         
         
     end
