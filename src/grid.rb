@@ -101,7 +101,14 @@ def contains?(row_column_position, element)
 
     x = @screen[row_position][column_position]
     
-    if(x.include?(element))
+    c = x.class
+
+    if(x.class == String) 
+      if(x.include?(element.to_s))
+        puts "does contain"
+        return true
+      end  
+    elsif(x == element)
       return true
     else
       return false

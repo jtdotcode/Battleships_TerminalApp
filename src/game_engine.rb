@@ -90,7 +90,7 @@ def place_ships(grid, position, element)
 
     items.each do |x|
         if(collision?(grid, position, x)) 
-            puts "Unable to place plese try again"
+            puts "Unable to place ship please try again!"
             return false
         end
           
@@ -101,15 +101,46 @@ def place_ships(grid, position, element)
 end
 
 
-def get_input(message, method)
+def player_board(message, player_grid)
 
-    
-    # input readline
-    while buf = Readline.readline("> ", true)
-        print message
+    input = ""
+    ship_count = @@ships.length
+    continue = true
 
-        p buf
+    while(continue)
+        
+        player_grid.display
+        
+        if(ship_count != 0)
+            @@ships.each do |k,v|
+                puts "Where would you like to place the #{k}(#{v.icon})"
+                puts "You have #{ship_count} left to place" 
+                input = gets.chomp
+                if(input.downcase == 'quit')
+                    continue = false
+                    break
+                end
+                if(place_ships(player_grid, convert_coordinates(input), @@ships[k]))
+                    puts "Placing ships...."
+                    ship_count -= 1
+                    player_grid.redraw
+                else
+                    puts "invalid selection please place that ship again"
+                end
+            end
+        else
+            system("clear")
+            player_grid.display
+            continue = false
+        end
+        
       end
+
+end
+
+
+def computer_board
+
 
 end
 
@@ -133,20 +164,17 @@ def start
 
    
 
-    #get_input("Hello")
+    
+    
     player_grid = Grid.new()
-    if(place_ships(player_grid, [1,0], @@ships["Carrier"]))
-        puts "placing ships"
-    else
-        puts "cant place ships"
-    end
-
+   
+    player_board("Please place your ship\n", player_grid)
     # player_grid.add([3,2], @@ships["Carrier"])
 
     
 
     
-    player_grid.display
+    
     
     
 

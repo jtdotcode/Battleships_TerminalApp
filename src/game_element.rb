@@ -2,14 +2,15 @@
 
 class GameElement
 
-    attr_reader :name
+    attr_reader :name, :icon
 
     def initialize(string_element, name, position=[0,0])
         @string_element = create(string_element)
         @position = position
         @name = name
         @hit = false
-        @visble = false        
+        @visble = false
+        @icon = @string_element        
         
     end
 
