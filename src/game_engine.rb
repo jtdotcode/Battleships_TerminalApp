@@ -101,7 +101,7 @@ def place_ships(grid, position, element)
 end
 
 
-def player_board(message, player_grid)
+def player_board(player_grid)
 
     input = ""
     ship_count = @@ships.length
@@ -190,6 +190,8 @@ end
 
 def computer_ai
 
+    
+
 
 end
 
@@ -221,6 +223,7 @@ def start
     #player_board("Please place your ship\n", player_grid)
     # player_grid.add([3,2], @@ships["Carrier"])
 
+    player_board(player_grid)
     computer_board(computer_grid)
 
     

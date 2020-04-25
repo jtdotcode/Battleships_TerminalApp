@@ -10,7 +10,9 @@ class GameElement
         @name = name
         @hit = false
         @visble = false
-        @icon = @string_element        
+        @icon = @string_element
+        @empty = true
+        @missed = false      
         
     end
 
@@ -48,6 +50,30 @@ class GameElement
 
     def hit
       return @hit
+    end
+
+    def empty
+        return @empty
+    end
+
+    def empty=(empty)
+        @empty = empty
+        if(empty == true)
+            @string_element = " . "
+        end
+
+    end
+
+    def missed=(missed)
+        @missed = missed
+        if(missed == true)
+            @string_element = "0"
+        end
+
+    end
+
+    def missed
+        return @missed
     end
 
     def display
