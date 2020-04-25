@@ -190,7 +190,7 @@ end
 
 def computer_ai
 
-    
+
 
 
 end
@@ -205,11 +205,11 @@ end
 def start
     puts "starting Game...."
     puts "creating ships"
-    create_ships("Carrier",GameElement.new("@","Carrier"))
-    create_ships("Battleship",GameElement.new("$","Battleship"))
-    create_ships("Cruiser", GameElement.new("%","Cruiser"))
-    create_ships("Submarine", GameElement.new("*","Submarine"))
-    create_ships("Destroyer", GameElement.new("&","Destroyer"))
+    create_ships("Carrier",GameElement.new("@","Carrier","ship"))
+    create_ships("Battleship",GameElement.new("$","Battleship", "ship"))
+    create_ships("Cruiser", GameElement.new("%","Cruiser", "ship"))
+    create_ships("Submarine", GameElement.new("*","Submarine", "ship"))
+    create_ships("Destroyer", GameElement.new("&","Destroyer", "ship"))
     
     
 

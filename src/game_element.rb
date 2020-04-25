@@ -2,9 +2,9 @@
 
 class GameElement
 
-    attr_reader :name, :icon
+    attr_reader :name, :icon, :type
 
-    def initialize(string_element, name, position=[0,0])
+    def initialize(string_element, name, type="grid-point", position=[0,0] )
         @string_element = create(string_element)
         @position = position
         @name = name
@@ -13,7 +13,7 @@ class GameElement
         @icon = @string_element
         @empty = true
         @missed = false      
-        
+        @type = type
     end
 
     def position=(position)
@@ -59,7 +59,7 @@ class GameElement
     def empty=(empty)
         @empty = empty
         if(empty == true)
-            @string_element = " . "
+            @string_element = "."
         end
 
     end

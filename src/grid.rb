@@ -29,25 +29,25 @@ def create
             if(i ==  0)
               #start of row which is first column
               if(x == 0 || x == @row)
-                array.push("     ")
+                array.push(GameElement.new("   ", "empty-space", "space"))
               else
-                array.push("  #{count-1}  ")
+                array.push(GameElement.new(" #{count-1} ", "label", "num-label"))
               end
                
             elsif(i == @column)
               #end of row which is last column 
               if(x == 0 || x == @row)
-                array.push("     ")
+                array.push(GameElement.new("   ", "empty-space", "space"))
               else
-                array.push("  #{count-1}  ")
+                array.push(GameElement.new(" #{count-1} ", "label", "num-label"))
               end
               
             else
               #rest of the row and columns
               if(x == 0 || x == @column)
-                array.push(" #{alphabet[i-1]} ")
+                array.push(GameElement.new("#{alphabet[i-1]}", "label", "alpha-label"))
               else 
-                array.push(" . ")
+                array.push(GameElement.new(".", "grid-point"))
               end
             end
             
@@ -114,7 +114,10 @@ def contains?(row_column_position, element)
       return false
     end
 
-end 
+end
+
+
+
 
 
 
