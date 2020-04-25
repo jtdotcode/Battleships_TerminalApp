@@ -47,7 +47,7 @@ def create
               if(x == 0 || x == @column)
                 array.push(GameElement.new("#{alphabet[i-1]}", "label", "alpha-label"))
               else 
-                array.push(GameElement.new(".", "grid-point"))
+                array.push(GameElement.new(".", "grid-point", "grid-point"))
               end
             end
             
@@ -93,7 +93,7 @@ def add(row_column_position, screen_obj)
 
 end
 
-def contains?(row_column_position, element)
+def contains?(row_column_position, type_of)
 
     row_position = row_column_position[0]
 
@@ -101,14 +101,9 @@ def contains?(row_column_position, element)
 
     x = @screen[row_position][column_position]
     
-    c = x.class
-
-    if(x.class == String) 
-      if(x.include?(element.to_s))
-        puts "does contain"
-        return true
-      end  
-    elsif(x == element)
+    if(x.type == type_of) 
+      puts "contains #{x.type}"
+      puts "type_of = #{type_of}"
       return true
     else
       return false

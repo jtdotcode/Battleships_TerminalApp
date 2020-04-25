@@ -59,9 +59,9 @@ end
 
 
 
-def collision?(grid, position, element)
+def collision?(grid, position, type_of)
     
-    if(grid.contains?(position, element))
+    if(grid.contains?(position, type_of))
         return true
     else
         return false
@@ -71,32 +71,45 @@ end
 
 
 def place_ships(grid, position, element)
-    abc = *('a'..'z')
-    i = 0
+    not_empty_types = [ "alpha-label", "num-label", "space"]
 
-    if(grid.row > grid.column)
-        i = grid.row
-    elsif(grid.row < grid.column)
-        i = grid.column
-    else
-        i = grid.row
-    end
+    not_empty_types = not_empty_types.push(element.type)
 
-    nums = *(1..i)
+    # abc = *('a'..'z')
+    # i = 0
+
+    # if(grid.row > grid.column)
+    #     i = grid.row
+    # elsif(grid.row < grid.column)
+    #     i = grid.column
+    # else
+    #     i = grid.row
+    # end
+
+    # nums = *(1..i)
     
-    items = nums + abc 
+    # items = nums + abc 
     
-    items.push(element)
+    # items.push(element)
 
-    items.each do |x|
+    not_empty_types.each do |x|
         if(collision?(grid, position, x)) 
             puts "Unable to place ship please try again!"
             return false
         end
+        
           
     end
 
     grid.add(position, element)
+
+    # if(collision?(grid, position, type_of))
+    #     puts "cant place #{type_of}"
+    #     return true
+    # else
+    #     grid.add(position, element)
+    #     return false
+    # end
 
 end
 
@@ -224,7 +237,7 @@ def start
     # player_grid.add([3,2], @@ships["Carrier"])
 
     player_board(player_grid)
-    computer_board(computer_grid)
+    #computer_board(computer_grid)
 
     
     
