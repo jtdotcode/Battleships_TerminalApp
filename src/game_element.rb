@@ -9,8 +9,7 @@ class GameElement
         @position = position
         @name = name
         @hit = false
-        @visble = false
-        
+        @visble = false        
         
     end
 

@@ -83,12 +83,31 @@ def update
 end
 
 
-def add(row_position, column_position, screen_obj)
+def add(row_column_position, screen_obj)
 
+    row_position = row_column_position[0]
+
+    column_position = row_column_position[1]
 
     @screen[row_position][column_position] = screen_obj
 
 end
+
+def contains?(row_column_position, element)
+
+    row_position = row_column_position[0]
+
+    column_position = row_column_position[1]
+
+    x = @screen[row_position][column_position]
+    
+    if(x.include?(element))
+      return true
+    else
+      return false
+    end
+
+end 
 
 
 

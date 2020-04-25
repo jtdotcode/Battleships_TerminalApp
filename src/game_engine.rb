@@ -7,8 +7,9 @@ module GameEngine
 
     
     
-    @@ships = {"Carrier" => [], "Battleship" => [], "Cruiser" => [], "Submarine" => [], "Destroyer" => [] }
-    @@ship_labels = {"Carrier" => "$", "Battleship" => "@", "Cruiser" => "*", "Submarine" => "#", "Destroyer" => "&" }
+    # @@ships = {"Carrier" => , "Battleship" => , "Cruiser" => , "Submarine" => , "Destroyer" => }
+    @@ships = { }
+    #@@ship_labels = {"Carrier" => "$", "Battleship" => "@", "Cruiser" => "*", "Submarine" => "#", "Destroyer" => "&" }
     
 
 
@@ -19,19 +20,9 @@ def start_screen
     
 end
 
-def create_ships(name, amount)
-    ship_array = []
-
-    for i in 1..amount
-        
-        puts "creating ship #{i}"
-        
-
-        ship_array.push(GameElement.new(@@ship_labels[name], name))
-
-    end
+def create_ships(name, object)
     
-    @@ships[name] << ship_array
+        @@ships[name] = object   
 
 end
 
@@ -47,32 +38,68 @@ end
 
 def convert_coordinates(position)
 
-    #abc = *('a'..'z')
+    
     abc = *('a'..'z')
 
     position = position.chars
-    
-    position.map do |x|
-        if(abc.include?(x))
-            x = abc.index(x) -1
+    position_array = [] 
+
+    position.each do |x|
+        if(abc.include?(x)) 
+           position_array.push(abc.index(x) + 1)
         else
-            x = x
-        end 
+            position_array.push(x.to_i)
+        end
     end
 
-    return position
+    return position_array
 
 end
 
 
-def place_ships(grid, position)
-    
-    
-    grid.add()
 
-    return position
+
+def collision?(grid, position, element)
+    
+    if(grid.contains?(position, element))
+        return true
+    else
+        return false
+    end
+    
+end 
+
+
+def place_ships(grid, position, element)
+    abc = *('a'..'z')
+    i = 0
+
+    if(grid.row > grid.column)
+        i = grid.row
+    elsif(grid.row < grid.column)
+        i = grid.column
+    else
+        i = grid.row
+    end
+
+    nums = *(1..i)
+    
+    items = nums + abc 
+    
+    items.push(element)
+
+    items.each do |x|
+        if(collision?(grid, position, x)) 
+            puts "Unable to place plese try again"
+            return false
+        end
+          
+    end
+
+    grid.add(position, element)
 
 end
+
 
 def get_input(message, method)
 
@@ -96,17 +123,33 @@ end
 def start
     puts "starting Game...."
     puts "creating ships"
-    create_ships("Carrier", 1)
-    create_ships("Battleship", 1)
-    create_ships("Cruiser", 1)
-    create_ships("Submarine", 1)
-    create_ships("Destroyer", 1)
+    create_ships("Carrier",GameElement.new("@","Carrier"))
+    create_ships("Battleship",GameElement.new("$","Battleship"))
+    create_ships("Cruiser", GameElement.new("%","Cruiser"))
+    create_ships("Submarine", GameElement.new("*","Submarine"))
+    create_ships("Destroyer", GameElement.new("&","Destroyer"))
+    
+    
+
+   
 
     #get_input("Hello")
     player_grid = Grid.new()
-    #player_grid.add()
+    if(place_ships(player_grid, [1,0], @@ships["Carrier"]))
+        puts "placing ships"
+    else
+        puts "cant place ships"
+    end
+
+    # player_grid.add([3,2], @@ships["Carrier"])
+
     
-    puts convert_coordinates("a1")
+
+    
+    player_grid.display
+    
+    
+
 
 
 end
