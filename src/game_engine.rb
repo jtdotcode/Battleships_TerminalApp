@@ -132,6 +132,7 @@ def player_board(message, player_grid)
             system("clear")
             player_grid.display
             continue = false
+            
         end
         
       end
@@ -139,7 +140,55 @@ def player_board(message, player_grid)
 end
 
 
-def computer_board
+def computer_board(computer_grid)
+    puts "placing computer ships"
+
+    ships = @@ships.dup
+    continue = true
+
+    while(true)
+    ships.each do |k,v|
+
+        computer_grid.display
+        if(place_ships(computer_grid,random_grid_position(computer_grid.row, computer_grid.column), ships[k]))
+            puts "Computer is placing ship #{k}(#{v.icon})...."
+            puts "please wait thinking...."
+            sleep(5)
+            ships.delete(k)
+            
+            puts "The computer has #{ships.length} left to place"
+            system('clear')
+        end
+
+        
+
+    end
+    puts ships.length
+
+    if(ships.length == 0)
+            puts "All ships placed"
+            continue = false
+            system('clear')
+            computer_grid.display
+        break
+    end
+    
+
+    end
+
+end
+
+def random_grid_position(row, column)
+
+    a = []
+    a.push(rand(1..row-1)) 
+    a.push(rand(1..column-1))
+
+    return a
+
+end
+
+def computer_ai
 
 
 end
@@ -167,11 +216,12 @@ def start
     
     
     player_grid = Grid.new()
+    computer_grid = Grid.new()
    
-    player_board("Please place your ship\n", player_grid)
+    #player_board("Please place your ship\n", player_grid)
     # player_grid.add([3,2], @@ships["Carrier"])
 
-    
+    computer_board(computer_grid)
 
     
     
