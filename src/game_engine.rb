@@ -5,12 +5,7 @@ require "readline"
 
 module GameEngine
 
-    
-    
-    # @@ships = {"Carrier" => , "Battleship" => , "Cruiser" => , "Submarine" => , "Destroyer" => }
     @@ships = { }
-    #@@ship_labels = {"Carrier" => "$", "Battleship" => "@", "Cruiser" => "*", "Submarine" => "#", "Destroyer" => "&" }
-    
 
 
 def start_screen
@@ -20,12 +15,12 @@ def start_screen
     
 end
 
+
 def create_ships(name, object)
     
         @@ships[name] = object   
 
 end
-
 
 
 def ships_available(name)
@@ -57,8 +52,6 @@ def convert_coordinates(position)
 end
 
 
-
-
 def collision?(grid, position, type_of)
     
     if(grid.contains?(position, type_of))
@@ -75,41 +68,14 @@ def place_ships(grid, position, element)
 
     not_empty_types = not_empty_types.push(element.type)
 
-    # abc = *('a'..'z')
-    # i = 0
-
-    # if(grid.row > grid.column)
-    #     i = grid.row
-    # elsif(grid.row < grid.column)
-    #     i = grid.column
-    # else
-    #     i = grid.row
-    # end
-
-    # nums = *(1..i)
-    
-    # items = nums + abc 
-    
-    # items.push(element)
-
     not_empty_types.each do |x|
         if(collision?(grid, position, x)) 
             puts "Unable to place ship please try again!"
             return false
         end
-        
-          
     end
 
     grid.add(position, element)
-
-    # if(collision?(grid, position, type_of))
-    #     puts "cant place #{type_of}"
-    #     return true
-    # else
-    #     grid.add(position, element)
-    #     return false
-    # end
 
 end
 
@@ -145,7 +111,6 @@ def player_board(player_grid)
             system("clear")
             player_grid.display
             continue = false
-            
         end
         
       end
@@ -204,8 +169,6 @@ end
 def computer_ai
 
 
-
-
 end
 
 
@@ -225,26 +188,12 @@ def start
     create_ships("Destroyer", GameElement.new("&","Destroyer", "ship"))
     
     
-
-   
-
-    
-    
     player_grid = Grid.new()
     computer_grid = Grid.new()
    
-    #player_board("Please place your ship\n", player_grid)
-    # player_grid.add([3,2], @@ships["Carrier"])
-
+  
     player_board(player_grid)
     #computer_board(computer_grid)
-
-    
-    
-    
-    
-
-
 
 end
 

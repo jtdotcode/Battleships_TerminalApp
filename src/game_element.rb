@@ -16,9 +16,9 @@ class GameElement
         @type = type
     end
 
+
     def position=(position)
     
-
         position.each_with_index do |x, idx|  
             @position[idx] = x
         end
@@ -27,17 +27,20 @@ class GameElement
 
     end
 
+
     def create(string)
 
       return string.to_s
 
     end
 
+
     def position
 
         return @position
 
     end
+
 
     def hit=(hit)
 
@@ -48,6 +51,7 @@ class GameElement
 
     end
 
+
     def hit
       return @hit
     end
@@ -55,6 +59,7 @@ class GameElement
     def empty
         return @empty
     end
+
 
     def empty=(empty)
         @empty = empty
@@ -64,6 +69,7 @@ class GameElement
 
     end
 
+
     def missed=(missed)
         @missed = missed
         if(missed == true)
@@ -72,14 +78,14 @@ class GameElement
 
     end
 
+
     def missed
         return @missed
     end
+
 
     def display
         @string_element
     end
 
-
-
-end
+end #end game_element class

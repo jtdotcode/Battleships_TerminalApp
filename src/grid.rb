@@ -2,6 +2,7 @@ class Grid
 
 attr_reader :row, :column
 
+
 def initialize(row=6, column=6)
     @row = row
     @column = column
@@ -13,9 +14,9 @@ end
 def redraw
     system('clear')
     display
-
 end
     
+
 def create
     alphabet = *('a'..'z')
     screen_array = []
@@ -93,6 +94,7 @@ def add(row_column_position, screen_obj)
 
 end
 
+
 def contains?(row_column_position, type_of)
 
     row_position = row_column_position[0]
@@ -112,10 +114,5 @@ def contains?(row_column_position, type_of)
 end
 
 
-
-
-
-
-
-end
+end #end grid class 
 
