@@ -54,7 +54,7 @@ def start_screen
     print "\n"
     print "   Welcome to Battleships!\n"
     print "   Battleships a game where you try and outsmart the enemies computer AI by attempting\n"
-    print "   to destroy all of their ships before they get yours\n"
+    print "   to destroy all of their ships before they get your ships\n"
     print "   *******Please choose a menu item to start***********\n"
     @screen = [
         {" Start Game" =>-> do start_game() end},
@@ -73,7 +73,8 @@ system('clear')
 
 #GameEngine::start
 
-score_board
+help_menu
+
 
 end
 
@@ -107,9 +108,28 @@ end
 
 
 def help_menu
+  puts "********************************Help Menu**********************************\n"
+  puts "In battleships you take turns guessing where the computer player has placed their ships on a grid and viceversa."
+  puts "You enter the grid coordinates marked on the side of the grid, first the row letter and then the column number."
+  puts "If you guess where all the computers ships are first you win."
+  puts "When the game first starts you will see your grid this is when you place your ships."
+  puts "Each round you will see the computers grid while you are attacking and your grid while you are being attacked."
+  puts "You can quit the game any time by type quit."
+  puts "The score is calculated from your total successful hits."
+  puts "\n"
+  puts "Return to main menu?, yes or no/enter to exit\n"
+  
+  input = gets.chomp
+  input.downcase == "yes" ? start_screen : exit 
+
+end
+
+def args
 
 
 end
+
+
 
 start_game()
 
