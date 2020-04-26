@@ -1,13 +1,14 @@
 class Grid
 
 attr_reader :row, :column
-
+attr_accessor :bottom_banner
 
 def initialize(label, row=6, column=6)
     @row = row
     @column = column
     @grid = create
     @label = label
+    @bottom_banner = ""
 end
 
 
@@ -74,7 +75,7 @@ def display
         end
         print "\n"
     end
-
+    print "   #{@bottom_banner}     \n"
 
 end
 
