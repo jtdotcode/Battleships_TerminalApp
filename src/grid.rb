@@ -3,7 +3,7 @@ class Grid
 attr_reader :row, :column
 attr_accessor :bottom_banner
 
-def initialize(label, row=6, column=6)
+def initialize(label, row=4, column=4)
     @row = row
     @column = column
     @grid = create

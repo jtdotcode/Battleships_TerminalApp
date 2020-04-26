@@ -18,8 +18,10 @@ def start_screen
     print "Welcome to the ship placement Screen\n"
     print "Please choose a position on the grid to place your ship"
     print ""
+end
+
+def no_colour
     String.disable_colorization = true
-    
 end
 
 
@@ -120,13 +122,14 @@ def player_board(player_grid)
                 puts "Type the Grid Coordinates to place the ship. e.g 1b for that location"
                 puts "You have #{ship_count} ship left to place! Type quit to exit anytime"
                 puts "Where would you like to place the #{k}(#{v.icon})?"
-                input = gets
+                input = gets.chomp
                     if(input.downcase == "quit")
                         continue = false
                         quit_game
                         break
                     elsif(input_ok?(input) == false)
                         message = "Invalid Input, Please enter row letter then column number".colorize(:red)
+                        system('clear')
                         break
                     end
                 if(place_ships(player_grid, convert_coordinates(input), @@ships[k]))
@@ -302,6 +305,7 @@ def play_game(player_grid, computer_grid)
             break
         elsif(input_ok?(input) == false)
             puts "Invalid Input, Please enter row letter then column number".colorize(:red)
+            system('clear')
         else
             if(human_player(computer_grid, player_grid, input))
                 player_score += 1
@@ -353,9 +357,15 @@ def read_scores
     scores = []
 
     begin
+        if(File.file?(@@score_file))
         CSV.foreach(@@score_file) do |row|
             scores.push(row)
           end
+        else
+            system('clear')
+            scores.push(["No Score file Available", "Please play the game"])
+        return scores
+        end
     rescue IOError => e
         puts "Unable to read to the score file"
         puts "Error #{e.message}"
@@ -392,20 +402,18 @@ def start
     #puts "creating ships"
     create_ships("Carrier",GameElement.new("@".colorize(:blue),"Carrier","ship"))
     create_ships("Battleship",GameElement.new("$".colorize(:red),"Battleship", "ship"))
-    # create_ships("Cruiser", GameElement.new("%","Cruiser", "ship"))
-    # create_ships("Submarine", GameElement.new("*","Submarine", "ship"))
-    # create_ships("Destroyer", GameElement.new("&","Destroyer", "ship"))
+    create_ships("Cruiser", GameElement.new("%","Cruiser".colorize(:green), "ship"))
+    create_ships("Submarine", GameElement.new("*","Submarine".colorize(:orange), "ship"))
+    create_ships("Destroyer", GameElement.new("&","Destroyer".colorize(:yellow), "ship"))
     
     
     player_grid = Grid.new("Your: Battle Grid")
     computer_grid = Grid.new("Computer: Battle Grid")
    
   
-    # player_board(player_grid)
-    # computer_board(computer_grid)
-    # play_game(player_grid, computer_grid)
-
-    score_telly("player", 10, 100)
+    player_board(player_grid)
+    computer_board(computer_grid)
+    play_game(player_grid, computer_grid)
 
 end
 
