@@ -4,12 +4,14 @@ require_relative "grid.rb"
 require_relative "game_element.rb"
 require "readline"
 require 'colorize'
+require "csv"
 
 module GameEngine
 
     @@ships = { }
     @@game_turns = 5
     @@color = true
+    @@score_file = "score.csv"
 
 
 def start_screen
@@ -321,11 +323,45 @@ def play_game(player_grid, computer_grid)
 end
 
 def save_score(score)
-    puts "Please enter yourname"
-    input = gets.chomp
-    puts "Thanks #{input}, writing your score to the score file"
-    
+    puts "Please enter your name"
+    name = gets.chomp
+    puts "Thanks #{name}, writing your score to the score file"
+    begin
+        if(File.file?(@@score_file))
+            CSV.open(@@score_file, "a+") do |csv|
+                csv << [name.to_s, score.to_s]
+              end
+        else
+            CSV.open(@@score_file, "wb") do |csv|
+                csv << ["Name", "Score"]
+                csv << [name, score]
+              end
+        end
+        
+    rescue IOError => e
+        puts "Unable to write to the score file"
+        puts "Error #{e.message}"
+    else
+        exit
+    end
 
+
+end
+
+def read_scores
+
+    scores = []
+
+    begin
+        CSV.foreach(@@score_file) do |row|
+            scores.push(row)
+          end
+    rescue IOError => e
+        puts "Unable to read to the score file"
+        puts "Error #{e.message}"
+    end
+    
+    return scores
 
 end
 
@@ -339,12 +375,12 @@ def score_telly(winner, computer_score, player_score)
             puts "Computer = #{computer_score} "
             puts "You = #{player_score}"
             puts "Would you like to save your score?, yes or no"
-            input = get.chomp
-            if input.downcase == "yes" ? save_score(player_score) : exit
+            input = gets.chomp
+            input.downcase == "yes" ? save_score(player_score) : exit
         else
             puts "You lost!, return to the start menu?, yes or no"
-            input = get.chomp
-            if input.downcase == "yes" ? start_menu : exit
+            input = gets.chomp
+            input.downcase == "yes" ? start_menu : exit
         end
 
 
@@ -365,9 +401,11 @@ def start
     computer_grid = Grid.new("Computer: Battle Grid")
    
   
-    player_board(player_grid)
-    computer_board(computer_grid)
-    play_game(player_grid, computer_grid)
+    # player_board(player_grid)
+    # computer_board(computer_grid)
+    # play_game(player_grid, computer_grid)
+
+    score_telly("player", 10, 100)
 
 end
 

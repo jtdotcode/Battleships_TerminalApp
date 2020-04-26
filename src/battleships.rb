@@ -71,13 +71,37 @@ def start_game()
 
 system('clear')
 
-GameEngine::start
+#GameEngine::start
+
+score_board
 
 end
 
 
 def score_board
 
+  scores = GameEngine::read_scores
+  puts "*********Score Board*************"
+  scores.each_with_index do |x, idxs|
+      
+      x.each_with_index do |i, idxx|
+      if(idxs == 0)
+        print "  #{i} "
+      else
+        if(idxx == 0)
+          print "  #{i} "
+        else
+          print " | #{i} "
+        end
+        
+      end
+      
+      end
+      puts "\n"
+  end
+  puts "Return to main menu?, yes or no to exit"
+  input = gets.chomp
+  input.downcase == "yes" ? start_screen : exit 
 
 end
 
