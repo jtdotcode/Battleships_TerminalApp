@@ -6,6 +6,7 @@ require "readline"
 module GameEngine
 
     @@ships = { }
+    @@game_turns = 5
 
 
 def start_screen
@@ -119,7 +120,7 @@ end
 
 
 def computer_board(computer_grid)
-    puts "placing computer ships"
+    puts "Please wait the computer is Placing its ships"
 
     ships = @@ships.dup
     continue = true
@@ -131,7 +132,7 @@ def computer_board(computer_grid)
         if(place_ships(computer_grid,random_grid_position(computer_grid.row, computer_grid.column), ships[k]))
             puts "Computer is placing ship #{k}(#{v.icon})...."
             puts "please wait thinking...."
-            sleep(5)
+            sleep(1)
             ships.delete(k)
             
             puts "The computer has #{ships.length} left to place"
@@ -166,7 +167,50 @@ def random_grid_position(row, column)
 
 end
 
-def computer_ai
+def computer_ai(player_gid)
+
+    puts "Computer says, take your turn filthy human!"
+    row = player_gid.row
+    column = player_gid.column
+
+    return random_grid_position(row, column)
+
+end
+
+
+def hit?(grid, position)
+    x = grid.get_element(position)
+    if(grid.contains?(position, "ship"))
+        
+        x.hit(true)
+        return true
+    else
+        x.missed(true)
+        return false
+    end
+
+end
+
+def play_game(player_gid, computer_grid)
+
+    turns = @@game_turns
+    
+    while(turns >  0)
+
+        puts "Where would you like to fire at the enemy?"
+        puts "Please enter the Grid location"
+        input = gets.chomp
+        input = convert_coordinates(input)
+        if(hit?(computer_grid,input))
+            puts "You sank an Enemy battleship"
+            computer_grid.redraw 
+        else
+            puts "Missed"
+            computer_grid.redraw
+        end
+            
+
+    end   
 
 
 end
@@ -182,10 +226,10 @@ def start
     puts "starting Game...."
     puts "creating ships"
     create_ships("Carrier",GameElement.new("@","Carrier","ship"))
-    create_ships("Battleship",GameElement.new("$","Battleship", "ship"))
-    create_ships("Cruiser", GameElement.new("%","Cruiser", "ship"))
-    create_ships("Submarine", GameElement.new("*","Submarine", "ship"))
-    create_ships("Destroyer", GameElement.new("&","Destroyer", "ship"))
+    # create_ships("Battleship",GameElement.new("$","Battleship", "ship"))
+    # create_ships("Cruiser", GameElement.new("%","Cruiser", "ship"))
+    # create_ships("Submarine", GameElement.new("*","Submarine", "ship"))
+    # create_ships("Destroyer", GameElement.new("&","Destroyer", "ship"))
     
     
     player_grid = Grid.new()
@@ -193,7 +237,8 @@ def start
    
   
     player_board(player_grid)
-    #computer_board(computer_grid)
+    computer_board(computer_grid)
+    play_game(player_grid, computer_grid)
 
 end
 

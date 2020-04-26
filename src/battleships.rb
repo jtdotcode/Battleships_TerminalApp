@@ -54,10 +54,9 @@ def start_screen
     print "   Battleships a game where you try and outsmart the enemies computer AI by attempting\n"
     print "   to destroy all of their ships before they get yours\n"
     print "   *******Please choose a menu item to start***********\n"
-    print "   Options 1-3 reflect how long each game takes\n"
     @screen = [
-        {" Start Game" =>-> do start_game("quick") end},
-        {" Score Board" =>-> do score_board("average") end},
+        {" Start Game" =>-> do start_game() end},
+        {" Score Board" =>-> do score_board() end},
         {" How to play" =>-> do help_menu() end},
         {" Exit" => -> do exit end}
     ]
@@ -65,7 +64,24 @@ def start_screen
 
 end
 
+def start_game()
+
+system('clear')
 
 GameEngine::start
 
+end
 
+
+def score_board
+
+
+end
+
+
+def help_menu
+
+
+end
+
+start_game

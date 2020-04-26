@@ -6,7 +6,7 @@ attr_reader :row, :column
 def initialize(row=6, column=6)
     @row = row
     @column = column
-    @screen = create
+    @grid = create
     
 end
 
@@ -63,7 +63,7 @@ end
 
 def display
 
-    for element in @screen
+    for element in @grid
 
         for item in element
             if(item.kind_of?(GameElement))
@@ -78,8 +78,14 @@ def display
 
 end
 
-def update
+def get_element(position)
+    row_position = position[0]
 
+    column_position = position[1]
+
+    element = @grid[row_position][column_position]
+
+  return element
 
 end
 
@@ -90,7 +96,7 @@ def add(row_column_position, screen_obj)
 
     column_position = row_column_position[1]
 
-    @screen[row_position][column_position] = screen_obj
+    @grid[row_position][column_position] = screen_obj
 
 end
 
@@ -101,7 +107,7 @@ def contains?(row_column_position, type_of)
 
     column_position = row_column_position[1]
 
-    x = @screen[row_position][column_position]
+    x = @grid[row_position][column_position]
     
     if(x.type == type_of) 
       puts "contains #{x.type}"

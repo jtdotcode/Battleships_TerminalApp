@@ -18,71 +18,56 @@ class GameElement
 
 
     def position=(position)
-    
         position.each_with_index do |x, idx|  
             @position[idx] = x
         end
-
         @position = position
-
     end
 
 
     def create(string)
-
       return string.to_s
-
     end
 
 
     def position
-
         return @position
-
     end
 
+    def hit
+        return @hit
+    end
 
-    def hit=(hit)
+    def hit(hit)
 
         @hit = hit
         if(hit == true)
             @string_element = "X"
         end
-
-    end
-
-
-    def hit
-      return @hit
+        
     end
 
     def empty
         return @empty
     end
 
-
-    def empty=(empty)
+    def empty(empty)
         @empty = empty
         if(empty == true)
             @string_element = "."
         end
-
     end
-
-
-    def missed=(missed)
-        @missed = missed
-        if(missed == true)
-            @string_element = "0"
-        end
-
-    end
-
 
     def missed
         return @missed
     end
 
+    def missed(missed)
+        @missed = missed
+        if(missed == true)
+            @string_element = "0"
+        end
+    end
 
     def display
         @string_element
