@@ -54,39 +54,11 @@ $game_heading = "
      ########::##:::: ##::: ##:::::: ##::::########:########. ######::##:::: ##'####:##:::::::. ######::
     ........::..:::::..::::..:::::::..::::........:........::......::..:::::..:....:..:::::::::......:::⠀\n"
 
-$game_logo = " 
-                        r..`b
-                ..,    	M^,P%g          -,        /@W                  w
-				g' @g   *@C    %g  r %, \'/*       ]Pk                 /
-               mgg'  *m,  '%,   '@, 'w 'w *w \ /M%**`                 ]F
-                 '%Ng  `%g   %g   'm   'w *,j, , '*L j          `*%Nm@@g,,
-                    `*N,  'm   *g   *g    %=  *.  ^. `              ]@*'''''`
-                        *%,  *,  'm   %g ,`}'j~.     ;             j$
-               g,,,,       *m, `w   %,  %,   `'*w,'w               @
-               $@     `'*mw,,'%g  ^,] %, '%        *$             #F
-               ]$@g            ''Mw,'{  'v '['*6,     k          g@
-               ]@$$@                   'w ``     `'%,  F  ~.,   gW
-               ]$']@%w                   '@Mw,,      '%  @,  T ,@F
-               ]&ML* #g      .            '^w,  'M,     F *%N  @P
-                $@g@$$$g                   ]  ,`*w, `*w#w  ,` @@
-                 '%l$lMlg                        m  'x,   \[ g$`
-                   '%%$$$L                            g *,` '%P
-                     '%@W$                                 *,  W
-                       '$$@                                  '\/ k
-                         %M@    ,,,,,                           V,@
-                      *%MNMQ,g*   ,g,www,,                        b
-                   ''*G,'  ''     F   /'''J%NNgmwwg@w              'w
-                 j$`   ,`      .,     *-              ''**mg,      /
-                  '%,                      .                 `,$g,/
-                     '%w,    `    ` '-     ,                      `|Mw \n "
-
-
-
 def start_screen
     prompt = TTY::Prompt.new
     system "clear"
     print $game_heading
-    print $game_logo
+    # print $game_logo
     print "\n"
     print "   Welcome to Battleships!\n"
     print "   Battleships a game where you try and outsmart the enemies computer AI by attempting\n"

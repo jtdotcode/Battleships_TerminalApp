@@ -8,7 +8,8 @@ require "csv"
 
 module GameEngine
 
-    @@ships = { }
+    @@ships_player = { }
+    @@ships_computer = { }
     @@game_turns = 5
     @@color = true
     @@score_file = "score.csv"
@@ -25,9 +26,16 @@ def no_colour
 end
 
 
-def create_ships(name, object)
+def create_player_ships(name, object)
     
-        @@ships[name] = object   
+        @@ships_player[name] = object   
+
+end
+
+
+def create_computer_ships(name, object)
+    
+    @@ships_computer[name] = object   
 
 end
 
@@ -107,9 +115,9 @@ end
 def player_board(player_grid)
 
     input = ""
-    ship_count = @@ships.length
+    ship_count = @@ships_player.length
     continue = true
-    ships = @@ships.dup
+    ships = @@ships_player.dup
     message = ""
 
     while(continue == true)
@@ -131,15 +139,20 @@ def player_board(player_grid)
                         message = "Invalid Input, Please enter row letter then column number".colorize(:red)
                         system('clear')
                         break
+                    else
+                        if(place_ships(player_grid, convert_coordinates(input), @@ships_player[k]))
+                            puts "Placing ships...."
+                            ship_count -= 1
+                            ships.delete(k)
+                            player_grid.redraw
+                        else
+                            system('clear')
+                            # player_grid.redraw
+                            puts "Invalid selection please place that ship again".colorize(:red)
+                            break
+                        end     
                     end
-                if(place_ships(player_grid, convert_coordinates(input), @@ships[k]))
-                    puts "Placing ships...."
-                    ship_count -= 1
-                    ships.delete(k)
-                    player_grid.redraw
-                else
-                    puts "Invalid selection please place that ship again"
-                end
+               
             end
         else
             system("clear")
@@ -155,37 +168,33 @@ end
 def computer_board(computer_grid)
     puts "Please wait the computer is Placing its ships"
 
-    ships = @@ships.dup
+    ships = @@ships_computer.dup
     continue = true
 
     while(true)
-    ships.each do |k,v|
-        v.hidden(false)
-        #computer_grid.display
-        if(place_ships(computer_grid,random_grid_position(computer_grid.row, computer_grid.column), ships[k]))
-            puts "Computer is placing ship #{k}(#{v.icon})...."
-            puts "please wait thinking...."
-            sleep(1)
-            ships.delete(k)
-            
-            puts "The computer has #{ships.length} left to place"
-            system('clear')
+        ships.each do |k,v|
+            v.hidden(true)
+            #computer_grid.display
+            if(place_ships(computer_grid,random_grid_position(computer_grid.row, computer_grid.column), ships[k]))
+                puts "Computer is placing ship #{k}(#{v.icon})...."
+                puts "please wait thinking...."
+                puts "The computer has #{ships.length} left to place"
+                
+                ships.delete(k)
+                
+            end
+
         end
 
-        
-
-    end
-    puts ships.length
-
-    if(ships.length == 0)
-            puts "All ships placed"
-            continue = false
-            system('clear')
-            computer_grid.display
-        break
-    end
+        if(ships.length == 0)
+                puts "All ships placed"
+                sleep(5)
+                continue = false
+                system('clear')
+                computer_grid.display
+            break
+        end
     
-
     end
 
 end
@@ -204,7 +213,6 @@ end
 
 def computer_ai(player_gid)
 
-    puts "Computer says, take your turn filthy human!"
     row = player_gid.row
     column = player_gid.column
 
@@ -214,18 +222,19 @@ end
 
 def human_player(computer_grid, player_grid, input)
         system('clear')
+        computer_grid.bottom_banner = ""
         player_grid.redraw
         input = convert_coordinates(input)
         if(hit?(computer_grid,input))
             system('clear')
-            computer_grid.bottom_banner = "You sunk an Enemy battleship! \n Computer says; NO!".colorize(:red)
+            computer_grid.bottom_banner = "Battleship hit!".colorize(:blue)
             sleep(1)
             computer_grid.redraw
             return true 
         else
             system('clear')
             sleep(1)
-            computer_grid.bottom_banner = "Missed!, \n Computer says; Yes! Take that meat bag!".colorize(:blue)
+            computer_grid.bottom_banner = "Battleship Missed!".colorize(:red)
             computer_grid.redraw
             return false
         end
@@ -235,16 +244,18 @@ end
 
 def computer_player(player_grid, computer_grid)
 
+    player_grid.bottom_banner = ""
+
     if(hit?(player_grid,random_grid_position(player_grid.row, player_grid.column)))
         
-        player_grid.bottom_banner = "Battleship hit!, You are mine, meat bag!".colorize(:blue)
+        player_grid.bottom_banner = "Battleship hit!".colorize(:blue)
         player_grid.redraw
         sleep(5)
         computer_grid.redraw
         return true 
     else
        
-        player_grid.bottom_banner = "Battleship Missed!, \n Computer says; Dam it!".colorize(:red)
+        player_grid.bottom_banner = "Battleship Missed!".colorize(:red)
         player_grid.redraw
         sleep(5)
         computer_grid.redraw
@@ -275,7 +286,7 @@ end
 def play_game(player_grid, computer_grid)
 
     turns = @@game_turns
-    total_ships = @@ships.length
+    total_ships = @@ships_computer.length
     player_score = 0
     player_misses = 0
     computer_score = 0
@@ -283,21 +294,9 @@ def play_game(player_grid, computer_grid)
     
     
     while(turns >  0 || quit == false)
-
-        if(player_score == total_ships)
-            system('clear')
-            puts "Congratulations you sunk all the Enemies Battle Ships"
-            score_telly("player", computer_score, player_score)
-            break
-        elsif(computer_score == total_ships)
-            system('clear')
-            puts "Computer Says; I won!, Sorry not sorry you lost"
-            score_telly("computer", computer_score, player_score)
-            break
-        end
         
         
-        puts "Where would you like to hit your enemy?"
+        puts "Your Turn, Where you you like to hit?"
         input = gets.chomp
         if(input.downcase == "quit")
             quit = true
@@ -309,13 +308,26 @@ def play_game(player_grid, computer_grid)
         else
             if(human_player(computer_grid, player_grid, input))
                 player_score += 1
+                puts "player score is #{player_score}"
+                if(player_score == total_ships)
+                    system('clear')
+                    puts "Congratulations you sunk all the Enemies Battle Ships"
+                    score_telly("player", computer_score, player_score)
+                    break
+                end
             else
-                computer_grid.bottom_banner = "Missed"
+                computer_grid.bottom_banner = ""
             end
             if(computer_player(player_grid, computer_grid))
                 computer_score += 1
-            else
-                player_grid.bottom_banner = "Missed"
+                puts "computer score is #{player_score}"
+                if(computer_score == total_ships)
+                    system('clear')
+                    puts "Computer Says; I won!, Sorry not sorry you lost"
+                    score_telly("computer", computer_score, player_score)
+                    break
+                end
+            
             end
 
         end
@@ -398,14 +410,16 @@ end
 
 
 def start
-    #puts "starting Game...."
-    #puts "creating ships"
-    create_ships("Carrier",GameElement.new("@".colorize(:blue),"Carrier","ship"))
-    create_ships("Battleship",GameElement.new("$".colorize(:red),"Battleship", "ship"))
-    create_ships("Cruiser", GameElement.new("%","Cruiser".colorize(:green), "ship"))
-    create_ships("Submarine", GameElement.new("*","Submarine".colorize(:orange), "ship"))
-    create_ships("Destroyer", GameElement.new("&","Destroyer".colorize(:yellow), "ship"))
     
+    #computer ships 
+    create_computer_ships("Carrier",GameElement.new("\@".colorize(:blue),"Carrier","ship"))
+    create_computer_ships("Battleship",GameElement.new("\$".colorize(:red),"Battleship", "ship"))
+    create_computer_ships("Cruiser", GameElement.new("\%".colorize(:green),"Cruiser", "ship"))
+
+    #player ships
+    create_player_ships("Carrier",GameElement.new("\@".colorize(:blue),"Carrier","ship"))
+    create_player_ships("Battleship",GameElement.new("\$".colorize(:red),"Battleship", "ship"))
+    create_player_ships("Cruiser", GameElement.new("\%".colorize(:green),"Cruiser", "ship"))
     
     player_grid = Grid.new("Your: Battle Grid")
     computer_grid = Grid.new("Computer: Battle Grid")
