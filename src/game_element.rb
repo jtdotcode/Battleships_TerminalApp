@@ -2,20 +2,28 @@
 
 class GameElement
 
-    attr_reader :name, :icon, :type
+    attr_reader :name, :icon, :type, :hidden
 
     def initialize(string_element, name, type="grid-point", position=[0,0] )
         @string_element = create(string_element)
         @position = position
         @name = name
         @hit = false
-        @visble = false
+        @hidden = false
         @icon = @string_element
         @empty = true
         @missed = false      
         @type = type
     end
 
+    def hidden(hidden)
+        if(hidden)
+            @string_element = "."
+            @hidden = true
+        else
+            @hidden = false
+        end
+    end
 
     def position=(position)
         position.each_with_index do |x, idx|  

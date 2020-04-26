@@ -6,6 +6,8 @@
     require_relative "game_engine.rb"
     include GameEngine
 
+
+
 $game_heading = "
     '########::::'###:::'########'########'##::::::'########:'######:'##::::'##'####'########::'######::
      ##.... ##::'## ##::... ##..:... ##..::##:::::::##.....:'##... ##:##:::: ##. ##::##.... ##'##... ##:
@@ -64,6 +66,7 @@ def start_screen
 
 end
 
+
 def start_game()
 
 system('clear')
@@ -84,4 +87,5 @@ def help_menu
 
 end
 
-start_game
+start_game()
+

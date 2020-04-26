@@ -1,4 +1,5 @@
 
+$LOAD_PATH << '.'
 require_relative "grid.rb"
 require_relative "game_element.rb"
 require "readline"
@@ -80,6 +81,10 @@ def place_ships(grid, position, element)
 
 end
 
+def quit_game
+    exit
+end
+
 
 def player_board(player_grid)
 
@@ -87,17 +92,19 @@ def player_board(player_grid)
     ship_count = @@ships.length
     continue = true
 
-    while(continue)
+    while(continue == true)
         
         player_grid.display
         
-        if(ship_count != 0)
+        if(ship_count != 0 )
             @@ships.each do |k,v|
                 puts "Where would you like to place the #{k}(#{v.icon})"
-                puts "You have #{ship_count} left to place" 
+                puts "Type the Grid Coordinates to place the ship. e.g 1b for the location on the Grid"
+                puts "You have #{ship_count} ship left to place! Type quit to exit anytime"
                 input = gets.chomp
-                if(input.downcase == 'quit')
+                if(input.downcase == "quit")
                     continue = false
+                    quit_game
                     break
                 end
                 if(place_ships(player_grid, convert_coordinates(input), @@ships[k]))
@@ -105,7 +112,7 @@ def player_board(player_grid)
                     ship_count -= 1
                     player_grid.redraw
                 else
-                    puts "invalid selection please place that ship again"
+                    puts "Invalid selection please place that ship again"
                 end
             end
         else
@@ -127,7 +134,7 @@ def computer_board(computer_grid)
 
     while(true)
     ships.each do |k,v|
-
+        v.hidden(true)
         computer_grid.display
         if(place_ships(computer_grid,random_grid_position(computer_grid.row, computer_grid.column), ships[k]))
             puts "Computer is placing ship #{k}(#{v.icon})...."
@@ -162,6 +169,8 @@ def random_grid_position(row, column)
     a = []
     a.push(rand(1..row-1)) 
     a.push(rand(1..column-1))
+    sleep(5)
+    puts a    
 
     return a
 
@@ -174,6 +183,41 @@ def computer_ai(player_gid)
     column = player_gid.column
 
     return random_grid_position(row, column)
+
+end
+
+def human_player(computer_grid, input)
+    
+        puts "Please enter the Grid location"
+        input = convert_coordinates(input)
+        if(hit?(computer_grid,input))
+            puts "You sunk an Enemy battleship"
+            sleep(5)
+            computer_grid.redraw
+            return true 
+        else
+            sleep(5)
+            puts "Missed"
+            computer_grid.redraw
+            return false
+        end
+
+
+end
+
+def computer_player(player_grid)
+    if(hit?(player_grid,random_grid_position(player_grid.row, player_grid.column)))
+        puts "Battleship hit!, You are mine, meat bag!"
+        sleep(5)
+        player_grid.redraw
+        return true 
+    else
+        sleep(5)
+        puts "Battleship Missed!, Dam it wish I was a PC"
+        player_grid.redraw
+        return false
+    end
+
 
 end
 
@@ -191,24 +235,27 @@ def hit?(grid, position)
 
 end
 
+
+
 def play_game(player_gid, computer_grid)
 
     turns = @@game_turns
+    total_ships = @@ships.length
+    human_score = 0
+    computer_score = 0
     
-    while(turns >  0)
+    while(turns >  0 || quit == false)
 
+        
         puts "Where would you like to fire at the enemy?"
-        puts "Please enter the Grid location"
         input = gets.chomp
-        input = convert_coordinates(input)
-        if(hit?(computer_grid,input))
-            puts "You sank an Enemy battleship"
-            computer_grid.redraw 
-        else
-            puts "Missed"
-            computer_grid.redraw
+        if(input.downcase == "quit")
+            quit = true
+            quit_game
+            break
         end
-            
+        human_player(computer_grid, input) == true ? human_score += 1 : "Missed"
+        computer_player(player_gid) == true ? computer_score += 1 : "Missed"
 
     end   
 
@@ -216,7 +263,9 @@ def play_game(player_gid, computer_grid)
 end
 
 
-def game_finished
+def game_finished(winner)
+
+
 
 
 end
@@ -232,8 +281,8 @@ def start
     # create_ships("Destroyer", GameElement.new("&","Destroyer", "ship"))
     
     
-    player_grid = Grid.new()
-    computer_grid = Grid.new()
+    player_grid = Grid.new("Player: Battle Grid")
+    computer_grid = Grid.new("Computer: Battle Grid")
    
   
     player_board(player_grid)

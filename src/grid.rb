@@ -3,11 +3,11 @@ class Grid
 attr_reader :row, :column
 
 
-def initialize(row=6, column=6)
+def initialize(label, row=6, column=6)
     @row = row
     @column = column
     @grid = create
-    
+    @label = label
 end
 
 
@@ -62,7 +62,7 @@ def create
 end
 
 def display
-
+    print "   #{@label}  \n"
     for element in @grid
 
         for item in element
