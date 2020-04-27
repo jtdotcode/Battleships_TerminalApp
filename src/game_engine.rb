@@ -203,8 +203,7 @@ def random_grid_position(row, column)
     a = []
     a.push(rand(1..row-1)) 
     a.push(rand(1..column-1))
-    sleep(5)
-    puts a    
+    sleep(2)
 
     return a
 

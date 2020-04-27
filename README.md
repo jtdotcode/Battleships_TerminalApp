@@ -109,20 +109,20 @@ Boolean true for a collision.
 
 ###### User Story
 
-The Player chooses the game type
-The Player begins game
-Welcome banner and instructions displayed
-Game starts
-The player chooses which battleships to place on the grid
-The computer is placing its battleships message is displayed
-The player is asked where on the computer’s grid they would like to take a hit.
-“Now its the computer players turn” message is displayed
-The computer randomly takes a hit on the player’s grid
-The player and computer take turns until one player has lost all the of ships
-When the game is over a banner is displayed with who has won the game.
-The game asks whether you would like the save the score or press q to quit.
-If q has been pressed you return to the start menu
-The player can choose to start a new game or quit.
+- The Player chooses the game type
+- The Player begins game
+- Welcome banner and instructions displayed
+- Game starts
+- The player chooses which battleships to place on the grid
+- The computer is placing its battleships message is displayed
+- The player is asked where on the computer’s grid they would like to take a hit.
+  “Now its the computer players turn” message is displayed
+- The computer randomly takes a hit on the player’s grid
+- The player and computer take turns until one player has lost all the of ships
+- When the game is over a banner is displayed with who has won the game.
+- The game asks whether you would like the save the score or press q to quit.
+- If q has been pressed you return to the start menu
+- The player can choose to start a new game or quit.
 
 
 
