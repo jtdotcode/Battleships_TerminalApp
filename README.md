@@ -2,6 +2,9 @@
 
 # Battleships
 
+Github Link:
+
+[Github](https://github.com/jtdotcode/Battleships_TerminalApp)
 
 
 #### Statement of Purpose and Scope
