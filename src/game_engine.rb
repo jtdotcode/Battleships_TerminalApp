@@ -50,7 +50,6 @@ end
 
 def convert_coordinates(position)
 
-    
     abc = *('a'..'z')
 
     position = position.chars
@@ -87,7 +86,7 @@ def place_ships(grid, position, element)
 
     not_empty_types.each do |x|
         if(collision?(grid, position, x)) 
-            puts "Unable to place ship please try again!"
+            puts "Unable to place ship please try again!".colorize(:red)
             return false
         end
     end
@@ -341,7 +340,7 @@ end
 def save_score(score)
     puts "Please enter your name"
     name = gets.chomp
-    puts "Thanks #{name}, writing your score to the score file"
+    puts "Thanks #{name}, Saving your score to the score file"
     begin
         if(File.file?(@@score_file))
             CSV.open(@@score_file, "a+") do |csv|

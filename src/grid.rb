@@ -111,8 +111,8 @@ def contains?(row_column_position, type_of)
     x = @grid[row_position][column_position]
     
     if(x.type == type_of) 
-      puts "contains #{x.type}"
-      puts "type_of = #{type_of}"
+      # puts "contains #{x.type}"
+      # puts "type_of = #{type_of}"
       return true
     else
       return false
