@@ -125,7 +125,7 @@ The player can choose to start a new game or quit.
 
 #### Control Flow Diagram
 
-![https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/Battleships_Game_flow_chart.png](C:\Users\john\OneDrive\Desktop\terminal_app_game\Battleships Game.png)
+![Control Flow Diagram](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/Battleships_Game_flow_chart.png)
 
 
 
@@ -151,13 +151,13 @@ You can see my live Trello board here:
 
 **First Project Day:**
 
-![https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/trello1.PNG](C:\Users\john\OneDrive\Desktop\terminal_app_game\trello1.PNG" style="zoom:50%;")
+![First Project Day](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/trello1.PNG)
 
 **As I progressed:**
 
-<img src="C:\Users\john\OneDrive\Desktop\terminal_app_game\trello2.PNG" alt="https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/trello2.PNG" style="zoom:50%;" />
+![As I progressed](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/trello2.PNG)
 
-![https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/trello5.PNG](C:\Users\john\OneDrive\Desktop\terminal_app_game\trello5.PNG)
+![As I progressed](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/trello5.PNG)
 
 
 
@@ -175,17 +175,17 @@ Each round you enter the grid coordinates marked on the side of the grid, first 
 
 **Start Menu**
 
-<img src="C:\Users\john\OneDrive\Desktop\terminal_app_game\start_menu.PNG" alt="https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/start_menu.PNG" style="zoom:50%;" />
 
+![Start Menu](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/start_menu.PNG)
 
 
 **Player Gameplay Grid**
 
-<img src="C:\Users\john\OneDrive\Desktop\terminal_app_game\battle_grid_player.PNG" alt="https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/battle_grid_player.PNG" style="zoom:50%;" />
+![Player Gameplay Grid](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/battle_grid_player.PNG)
 
 **Computer Grid**
 
-<img src="C:\Users\john\OneDrive\Desktop\terminal_app_game\battle_grid_computer.PNG" alt="https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/battle_grid_computer.PNG" style="zoom:50%;" />
+![Computer Grid](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/battle_grid_computer.PNG)
 
 
 
