@@ -208,6 +208,23 @@ You can see my live Trello board here:
 
 
 
+#### Tests
+
+The 3 tests I conducted are essential for the game as they validate and convert the Input from the player and stop them from entering a non-grid location. 
+
+The first test test_convert_coordinates method takes a String and converts it to a corresponding array position on the Grid, e.g. a = 1 so 
+a1 would return [1,1].
+
+The second test test_input_ok? Checks if the length of the String is no longer than two characters and that there is a letter first then a number, it will return true if the correct String is entered.
+
+The third test is fundamental to the gameplay, as the collision?() method is used when the ships objects are being placed onto the grid.
+
+All tests were conducted with the Ruby unit test library and can be viewed in the tests.rb file. 
+
+![Unit Tests](https://github.com/jtdotcode/Battleships_TerminalApp/blob/master/docs/tests.PNG)
+
+
+
 #### Game Help File
 
 Welcome to Battleships! A game that is inspired by the original paper game from the 1930’s.  
